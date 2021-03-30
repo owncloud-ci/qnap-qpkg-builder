@@ -1,0 +1,38 @@
+FROM owncloud/ubuntu:20.04
+
+LABEL maintainer="ownCloud GmbH <devops@owncloud.com>" \
+  org.opencontainers.image.title="ownCloud CI QPKG Builder" \
+  org.opencontainers.image.vendor="ownCloud GmbH" \
+  org.opencontainers.image.authors="ownCloud GmbH" \
+  org.opencontainers.image.description="ownCloud CI QPKG Builder" \
+  org.opencontainers.image.documentation="https://github.com/owncloud-ci/qnap-qpkg-builder.git" \
+  org.opencontainers.image.url="https://github.com/owncloud-ci/qnap-qpkg-builder" \
+  org.opencontainers.image.source="https://github.com/owncloud-ci/qnap-qpkg-builder"
+
+ARG QDK2_VER=0.29
+
+# Install build essentail tools
+RUN \
+  apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    curl \
+    wget \
+    fakeroot \
+    rsync \
+    pv \
+    bsdmainutils \
+    ca-certificates \
+    openssl \
+    xz-utils \
+    make \
+    docker.io \
+    python \
+  && rm -rf /var/cache/debconf/* /var/lib/apt/lists/* /var/log/*
+
+# Install qdk2
+RUN \
+  wget https://github.com/qnap-dev/qdk2/releases/download/v${QDK2_VER}/qdk2_${QDK2_VER}.bionic_amd64.deb \
+  && dpkg -i --force-depends qdk2_${QDK2_VER}.bionic_amd64.deb \
+  && rm -f qdk2_${QDK2_VER}.bionic_amd64.deb
+
+WORKDIR /work
