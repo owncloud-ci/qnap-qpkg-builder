@@ -9,7 +9,7 @@ LABEL maintainer="ownCloud GmbH <devops@owncloud.com>" \
   org.opencontainers.image.url="https://github.com/owncloud-ci/qnap-qpkg-builder" \
   org.opencontainers.image.source="https://github.com/owncloud-ci/qnap-qpkg-builder"
 
-ARG QDK2_VER=0.29
+ARG QDK2_VER=0.30
 
 # Install build essentail tools
 RUN \
