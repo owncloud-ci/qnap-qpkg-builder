@@ -9,7 +9,10 @@ LABEL maintainer="ownCloud GmbH <devops@owncloud.com>" \
   org.opencontainers.image.url="https://github.com/owncloud-ci/qnap-qpkg-builder" \
   org.opencontainers.image.source="https://github.com/owncloud-ci/qnap-qpkg-builder"
 
-ARG QDK2_VER=0.29
+ARG QDK2_VER
+
+# renovate: datasource=github-releases depName=qnap-dev/qdk2
+ENV QDK2_VER="${QDK2_VER:-v0.30}"
 
 # Install build essentail tools
 RUN \
@@ -31,8 +34,8 @@ RUN \
 
 # Install qdk2
 RUN \
-  wget https://github.com/qnap-dev/qdk2/releases/download/v${QDK2_VER}/qdk2_${QDK2_VER}.bionic_amd64.deb \
-  && dpkg -i --force-depends qdk2_${QDK2_VER}.bionic_amd64.deb \
+  wget https://github.com/qnap-dev/qdk2/releases/download/v${QDK2_VER##v}/qdk2_${QDK2_VER##v}.bionic_amd64.deb \
+  && dpkg -i --force-depends qdk2_${QDK2_VER##v}.bionic_amd64.deb \
   && rm -f qdk2_${QDK2_VER}.bionic_amd64.deb
 
 WORKDIR /work
