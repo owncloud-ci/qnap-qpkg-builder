@@ -1,5 +1,5 @@
 # QDK2 deb package is for bionic
-FROM owncloud/ubuntu:20.04@sha256:d1d586aee241add6b4b01aa47228c28c8d4729797c02270819722dd3cfa11cfa
+FROM owncloud/ubuntu:20.04@sha256:34d8602ce8bca6f917454e387cfb7649c2237256707cb6926f5d657d0413b31b
 
 LABEL maintainer="ownCloud GmbH <devops@owncloud.com>" \
   org.opencontainers.image.title="ownCloud CI QPKG Builder" \
